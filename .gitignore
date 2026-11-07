@@ -1,0 +1,2 @@
+# Exports produced by the audits contain tenant data: never commit them
+*.csv

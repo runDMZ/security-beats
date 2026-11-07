@@ -1,33 +1,32 @@
-# 🧪 qubes-lab
+# 🔊 security-beats
 
-> *Compartmentalization, applied to my own workstation.*
+> *Security is designed in from the start, not bolted on in production.*
 
-How I run and harden my daily machine on **Qubes OS 4.3**: each part is a hands-on guide or a script, tested on the real machine, with the problems met on the way and how they were solved.
+The security side of my work: a hardened workstation, cloud audits, system hardening. Every part is tested on a real machine or against a real cloud API, with the problems met on the way and how they were solved.
 
-## Parts
+```
+security-beats/
+├── qubes/          Qubes OS workstation: hardened template, split-SSH
+├── azure-audits/   read-only Azure audits: RBAC, network exposure, storage
+├── hardening/      server hardening as code (coming next)
+└── tests/          Pester tests for the Azure audits
+```
+
+## Tracks
 
 | Part | What it is | Highlights |
 |---|---|---|
-| [**Hardened template**](hardened-template/) | A Debian template hardened once, inherited by every qube based on it. Script + write-up | ANSSI and CIS measures adapted to Qubes: what does not work like on a server (qrexec sessions, `pam_umask`, systemd limits), Debian 13 pitfalls |
-| [**Split-SSH**](split-ssh/) | SSH private keys kept in an offline qube, used from a networked qube, every use approved in dom0 | qrexec service and dom0 policy, full troubleshooting log |
+| [**Qubes · hardened template**](qubes/hardened-template/) | A Debian template hardened once, inherited by every qube based on it. Script + write-up | ANSSI and CIS measures adapted to Qubes: what does not work like on a server (qrexec sessions, `pam_umask`, systemd limits), Debian 13 pitfalls |
+| [**Qubes · split-SSH**](qubes/split-ssh/) | SSH private keys kept in an offline qube, used from a networked qube, every use approved in dom0 | qrexec service and dom0 policy, full troubleshooting log |
+| [**Azure audits**](azure-audits/) | PowerShell audits that need Reader only | Risky role assignments, what is open to the Internet, storage account settings, findings rated by severity, Pester tests |
+| [**Hardening**](hardening/) | Server hardening as code | Coming next |
 
-## How the parts fit together
+How the Qubes parts fit together: [qubes/](qubes/).
 
-```
-debian-13-xfce          stock template
-  └─ system qubes (sys-net, sys-firewall, sys-usb)
+## Principles
 
-debian-13-hardened      hardened template
-  ├─ everyday qubes and disposables
-  ├─ vault-ssh template (+ socat)     ─ vault-ssh: SSH keys, no network
-  └─ dev template (+ socat, git)      ─ dev: code, git, pushes approved in dom0
-```
+- **Least privilege**: audits are read-only and state the minimum role they need.
+- **Explain the why**: each measure says which risk it addresses and which benchmark it comes from.
+- **No real data**: no tenant name, ID, key or export in this repo.
 
-- Templates provide the system; qubes only keep their own `/home`, `/rw` and `/usr/local`. Hardening the template therefore hardens every qube based on it.
-- Each specialised template is a clone of the hardened one, with only the tools its role needs.
-- The SSH keys never leave `vault-ssh`, which has no network at all.
-
-## Coming next
-
-- Per-qube outbound firewall rules (`qvm-firewall`)
-- dom0 confirmation instead of password-less root inside qubes
+Day-to-day admin scripts (inventory, costs, Microsoft 365) live in [sysadmin-mixtape](https://github.com/runDMZ/sysadmin-mixtape).
