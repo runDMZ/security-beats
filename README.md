@@ -1,5 +1,7 @@
 # 🔊 security-beats
 
+[![tests](https://github.com/runDMZ/security-beats/actions/workflows/tests.yml/badge.svg)](https://github.com/runDMZ/security-beats/actions/workflows/tests.yml)
+
 > *Security is designed in from the start, not bolted on in production.*
 
 The security side of my work: a hardened workstation, cloud audits, system hardening. Every part is tested on a real machine or against a real cloud API, with the problems met on the way and how they were solved.
