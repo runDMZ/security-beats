@@ -90,9 +90,9 @@ try {
                         SubscriptionName = $sub.Name
                         Category         = 'OpenNsgRule'
                         Severity         = $severity
-                        Resource         = '{0} / {1}' -f $nsg.Name, $rule.Name
+                        Resource         = ('{0} / {1}' -f $nsg.Name, $rule.Name)
                         ResourceGroup    = $nsg.ResourceGroupName
-                        Details          = 'Ports {0} {1} from {2}, priority {3}{4}' -f ($ports -join ','), $rule.Protocol, ($openSources -join ','), $rule.Priority, $(if ($attached) { '' } else { ' (NSG not attached)' })
+                        Details          = ('Ports {0} {1} from {2}, priority {3}{4}' -f ($ports -join ','), $rule.Protocol, ($openSources -join ','), $rule.Priority, $(if ($attached) { '' } else { ' (NSG not attached)' }))
                         ResourceId       = $rule.Id
                     })
             }
@@ -106,7 +106,7 @@ try {
                         Severity         = 'Medium'
                         Resource         = $ip.Name
                         ResourceGroup    = $ip.ResourceGroupName
-                        Details          = '{0} on network interface {1}' -f $ip.IpAddress, $Matches[1]
+                        Details          = ('{0} on network interface {1}' -f $ip.IpAddress, $Matches[1])
                         ResourceId       = $ip.Id
                     })
             }
