@@ -2,7 +2,7 @@ BeforeAll {
     . (Join-Path $PSScriptRoot 'TestHelpers.ps1')
     $script:Path = $PSCommandPath -replace '\.Tests\.ps1$', '.ps1'
 
-    function New-Rule {
+    function Get-FakeRule {
         param($Name, $Ports, $Source = @('*'), $Access = 'Allow', $Direction = 'Inbound')
         [pscustomobject]@{ Name = $Name; Id = "rule/$Name"; Direction = $Direction; Access = $Access; Protocol = 'Tcp'
             Priority = 100; SourceAddressPrefix = @($Source); DestinationPortRange = @($Ports) }
@@ -15,16 +15,16 @@ Describe 'Test-AzNetworkExposure' {
         Mock Get-AzNetworkSecurityGroup {
             [pscustomobject]@{ Name = 'nsg-web'; ResourceGroupName = 'rg-a'; NetworkInterfaces = @('nic'); Subnets = @()
                 SecurityRules = @(
-                    (New-Rule 'rdp-open' '3389' 'Internet')
-                    (New-Rule 'https-open' '443')
-                    (New-Rule 'range-open' '3000-4000' '0.0.0.0/0')
-                    (New-Rule 'all-ports' '*')
-                    (New-Rule 'ssh-office' '22' '203.0.113.10/32')
-                    (New-Rule 'ssh-denied' '22' '*' 'Deny')
-                    (New-Rule 'outbound' '22' '*' 'Allow' 'Outbound')
+                    (Get-FakeRule 'rdp-open' '3389' 'Internet')
+                    (Get-FakeRule 'https-open' '443')
+                    (Get-FakeRule 'range-open' '3000-4000' '0.0.0.0/0')
+                    (Get-FakeRule 'all-ports' '*')
+                    (Get-FakeRule 'ssh-office' '22' '203.0.113.10/32')
+                    (Get-FakeRule 'ssh-denied' '22' '*' 'Deny')
+                    (Get-FakeRule 'outbound' '22' '*' 'Allow' 'Outbound')
                 ) }
             [pscustomobject]@{ Name = 'nsg-spare'; ResourceGroupName = 'rg-a'; NetworkInterfaces = @(); Subnets = @()
-                SecurityRules = @((New-Rule 'ssh-open' '22')) }
+                SecurityRules = @((Get-FakeRule 'ssh-open' '22')) }
         }
         Mock Get-AzPublicIpAddress {
             [pscustomobject]@{ Name = 'ip-vm'; ResourceGroupName = 'rg-a'; Id = 'ip1'; IpAddress = '20.0.0.1'
