@@ -11,7 +11,7 @@ BeforeAll {
 
 Describe 'Test-AzNetworkExposure' {
     BeforeAll {
-        Set-AzConnectionMock
+        Initialize-AzConnectionMock
         Mock Get-AzNetworkSecurityGroup {
             [pscustomobject]@{ Name = 'nsg-web'; ResourceGroupName = 'rg-a'; NetworkInterfaces = @('nic'); Subnets = @()
                 SecurityRules = @(

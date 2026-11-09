@@ -5,7 +5,7 @@ BeforeAll {
 
 Describe 'Test-AzStorageAccountSecurity' {
     BeforeAll {
-        Set-AzConnectionMock
+        Initialize-AzConnectionMock
         Mock Get-AzStorageAccount {
             [pscustomobject]@{ StorageAccountName = 'sthardened'; ResourceGroupName = 'rg-a'; Id = 'st1'
                 EnableHttpsTrafficOnly = $true; MinimumTlsVersion = 'TLS1_2'; AllowBlobPublicAccess = $false

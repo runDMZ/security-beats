@@ -5,7 +5,7 @@ BeforeAll {
 
 Describe 'Get-AzRoleAssignmentReport' {
     BeforeAll {
-        Set-AzConnectionMock
+        Initialize-AzConnectionMock
         Mock Get-AzRoleAssignment {
             [pscustomobject]@{ DisplayName = 'Alice'; SignInName = 'alice@contoso.com'; ObjectType = 'User'; ObjectId = 'o1'
                 RoleDefinitionName = 'Owner'; Scope = '/subscriptions/sub-1'; RoleAssignmentId = 'ra1' }
