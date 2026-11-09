@@ -13,7 +13,7 @@ security-beats/
 └── hardening/      server hardening as code (coming next)
 ```
 
-Next to a script, a file with the same name ending in `.Tests.ps1` is its **automated test**: it runs the script against fake data and checks the answers.
+Next to a script, a file with the same name ending in `.Tests.ps1` is its **automated test**: it runs the script against fake data and checks the answers. They run at every push on GitHub Actions.
 
 ## Tracks
 

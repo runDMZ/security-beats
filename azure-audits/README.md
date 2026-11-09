@@ -29,7 +29,7 @@ Connect-AzAccount                       # an account with Reader is enough
 
 ## Tests
 
-Each audit has its test next to it (`Name.Tests.ps1`), to run after changing the script. The tests replace every Az cmdlet with a mock, so they run without an Azure account (the Az modules must still be installed: Pester can only mock commands that exist).
+Each audit has its test next to it (`Name.Tests.ps1`), to run after changing the script. Tests run automatically on [GitHub Actions](https://docs.github.com/actions) at every push: the badge at the top of the [repository](../README.md) shows the result of the last run. Scripts named `Test-...` (such as `Test-AzNetworkExposure.ps1`) are not tests: in PowerShell the verb `Test` means *check something*, like `Test-Path`. Their own tests are the `.Tests.ps1` files. The tests replace every Az cmdlet with a mock, so they run without an Azure account (the Az modules must still be installed: Pester can only mock commands that exist).
 
 ```powershell
 Install-Module Pester -MinimumVersion 5.5 -Scope CurrentUser
