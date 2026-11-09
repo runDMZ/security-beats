@@ -8,9 +8,10 @@ The security side of my work: a hardened workstation, cloud audits, system harde
 security-beats/
 ├── qubes/          Qubes OS workstation: hardened template, split-SSH
 ├── azure-audits/   read-only Azure audits: RBAC, network exposure, storage
-├── hardening/      server hardening as code (coming next)
-└── tests/          Pester tests for the Azure audits
+└── hardening/      server hardening as code (coming next)
 ```
+
+Next to a script, a file with the same name ending in `.Tests.ps1` is its **automated test**: it runs the script against fake data and checks the answers.
 
 ## Tracks
 

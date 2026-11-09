@@ -29,13 +29,13 @@ Connect-AzAccount                       # an account with Reader is enough
 
 ## Tests
 
-Pester tests replace every Az cmdlet with a mock, so they run without an Azure account (the Az modules must still be installed: Pester can only mock commands that exist).
+Each audit has its test next to it (`Name.Tests.ps1`), to run after changing the script. The tests replace every Az cmdlet with a mock, so they run without an Azure account (the Az modules must still be installed: Pester can only mock commands that exist).
 
 ```powershell
 Install-Module Pester -MinimumVersion 5.5 -Scope CurrentUser
 Install-Module PSScriptAnalyzer -Scope CurrentUser
 
-Invoke-Pester ./tests -Output Detailed
+Invoke-Pester ./azure-audits -Output Detailed
 Invoke-ScriptAnalyzer -Path ./azure-audits -Settings ./PSScriptAnalyzerSettings.psd1
 ```
 

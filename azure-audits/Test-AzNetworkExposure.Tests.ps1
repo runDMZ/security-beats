@@ -1,6 +1,6 @@
 BeforeAll {
-    . (Join-Path $PSScriptRoot 'Common.ps1')
-    $script:Path = Get-ScriptPath 'azure-audits/Test-AzNetworkExposure.ps1'
+    . (Join-Path $PSScriptRoot 'TestHelpers.ps1')
+    $script:Path = $PSCommandPath -replace '\.Tests\.ps1$', '.ps1'
 
     function New-Rule {
         param($Name, $Ports, $Source = @('*'), $Access = 'Allow', $Direction = 'Inbound')
