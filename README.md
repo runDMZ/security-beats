@@ -10,7 +10,8 @@ The security side of my work: a hardened workstation, cloud audits, system harde
 security-beats/
 ├── qubes/          Qubes OS workstation: hardened template, split-SSH
 ├── azure-audits/   read-only Azure audits: RBAC, network exposure, storage
-└── hardening/      server hardening as code (coming next)
+├── hardening/      server hardening as code (coming next)
+└── web-auth/       offline attacks on HTTP auth schemes (Digest cracking)
 ```
 
 Next to a script, a file with the same name ending in `.Tests.ps1` is its **automated test**: it runs the script against fake data and checks the answers. They run at every push on GitHub Actions.
@@ -23,6 +24,7 @@ Next to a script, a file with the same name ending in `.Tests.ps1` is its **auto
 | [**Qubes · split-SSH**](qubes/split-ssh/) | SSH private keys kept in an offline qube, used from a networked qube, every use approved in dom0 | qrexec service and dom0 policy, full troubleshooting log |
 | [**Azure audits**](azure-audits/) | PowerShell audits that need Reader only | Risky role assignments, what is open to the Internet, storage account settings, findings rated by severity, Pester tests |
 | [**Hardening**](hardening/) | Server hardening as code | Coming next |
+| [**Web auth**](web-auth/) | Offline attacks on HTTP auth schemes, to show why each fails | HTTP Digest cracking from a sniffed header, the RFC 2617 formula explained, why only TLS actually fixes it |
 
 How the Qubes parts fit together: [qubes/](qubes/).
 
