@@ -11,7 +11,8 @@ security-beats/
 ├── qubes/          Qubes OS workstation: hardened template, split-SSH
 ├── azure-audits/   read-only Azure audits: RBAC, network exposure, storage
 ├── hardening/      server hardening as code (coming next)
-└── web-auth/       offline attacks on HTTP auth schemes (Digest cracking)
+├── web-auth/       offline attacks on HTTP auth schemes (Digest cracking)
+└── cracking/       offline password recovery (unsalted hash cracking)
 ```
 
 Next to a script, a file with the same name ending in `.Tests.ps1` is its **automated test**: it runs the script against fake data and checks the answers. They run at every push on GitHub Actions.
@@ -25,6 +26,7 @@ Next to a script, a file with the same name ending in `.Tests.ps1` is its **auto
 | [**Azure audits**](azure-audits/) | PowerShell audits that need Reader only | Risky role assignments, what is open to the Internet, storage account settings, findings rated by severity, Pester tests |
 | [**Hardening**](hardening/) | Server hardening as code | Coming next |
 | [**Web auth**](web-auth/) | Offline attacks on HTTP auth schemes, to show why each fails | HTTP Digest cracking from a sniffed header, the RFC 2617 formula explained, why only TLS actually fixes it |
+| [**Cracking**](cracking/) | Offline password recovery, small and readable | Dictionary cracking of unsalted hashes with algorithm auto-detection, why unsalted MD5 falls, when to reach for hashcat/john instead |
 
 How the Qubes parts fit together: [qubes/](qubes/).
 
